@@ -57,13 +57,13 @@
       enabled: true
   become: true
 
-- name: rhel | Open Firewall Port
-  ansible.posix.firewalld:
-    port: 8080/tcp
-    permanent: yes
-    state: enabled
-    zone: public
-    immediate: yes
-  become: true
-  when: ansible_facts.services['firewalld.service'].state == 'started'
-  notify: "{{ firewalld_service }}"
+#- name: rhel | Open Firewall Port
+#  ansible.posix.firewalld:
+#    port: 8080/tcp
+#    permanent: yes
+#    state: enabled
+#    zone: public
+#    immediate: yes
+#  become: true
+#  when: ansible_facts.services['firewalld.service'].state == 'started'
+#  notify: "{{ firewalld_service }}"
