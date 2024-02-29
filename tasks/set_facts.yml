@@ -6,6 +6,7 @@
     jenkins_service: jenkins
     jenkins_repo: https://pkg.jenkins.io/redhat-stable/jenkins.repo
     jenkins_key: https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+    jenkins_home: /opt/jenkins
     java_version: java-17-openjdk
     firewalld_service: firewalld.service
   when: ansible_os_family == "RedHat"
