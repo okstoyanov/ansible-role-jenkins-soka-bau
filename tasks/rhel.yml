@@ -34,6 +34,13 @@
     state: present
   become: true
 
+#### TODO: Params ####
+- name: Correct java version selected
+  community.general.alternatives:
+    name: java
+    path: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el9.x86_64/bin/java
+    state: present
+
 - name: redhat | Installing jenkins 
   ansible.builtin.yum:
     name: "{{ jenkins_package }}"
