@@ -54,6 +54,7 @@
   ansible.builtin.systemd:
       name: "{{ jenkins_service }}"
       state: started
+      enabled: true
   become: true
 
 - name: rhel | Open Firewall Port
@@ -64,4 +65,5 @@
     zone: public
     immediate: yes
   become: true
+  offline: false
   notify: "{{ firewalld_service }}"
