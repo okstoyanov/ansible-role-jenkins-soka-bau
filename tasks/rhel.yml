@@ -67,3 +67,6 @@
 #  become: true
 #  when: ansible_facts.services['firewalld.service'].state == 'started'
 #  notify: "{{ firewalld_service }}"
+
+# Update Jenkins and install configured plugins.
+- include_tasks: plugins.yml
