@@ -1,2 +1,0 @@
-[client]
-192.168.102.2	ansible_connection=ssh	ansible_user=rclient

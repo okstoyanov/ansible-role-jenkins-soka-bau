@@ -1,5 +1,0 @@
-- hosts: localhost
-  become: yes
-  tasks :
-  - name: ansible set TimeZone
-    command: timedatectl set-timezone Asia/Kolkata

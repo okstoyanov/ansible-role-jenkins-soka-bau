@@ -1,9 +1,0 @@
-[masters]
-master ansible_host=YOUR_HOST_IP ansible_user=MASTER_USERNAME
-
-[workers]
-worker1 ansible_host=YOUR_WORKER1_IP ansible_user=WORKER1_USERNAME
-worker2 ansible_host=YOUR_WORKER2_IP ansible_user=WORKER2_USERNAME
-
-[all:vars]
-ansible_python_interpreter=/usr/bin/python3

@@ -1,6 +1,0 @@
----
-- hosts: appserver
-  become: yes
-
-  roles:
-    - common

@@ -1,4 +1,0 @@
----
-- name: Set TimeZone
-  timezone:
-    name: Asia/Kolkata
