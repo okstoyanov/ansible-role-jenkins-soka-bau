@@ -22,6 +22,12 @@
     state: latest
   become: true
 
+- name: redhat | install dependencies fontconfig
+  ansible.builtin.yum:
+    name: fontconfig
+    state: present
+  become: true
+
 - name: redhat | install java for jenkins 
   ansible.builtin.yum: 
     name: "{{ java_version }}"
