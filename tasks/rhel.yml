@@ -34,9 +34,6 @@
     state: present
   become: true
 
-  # Configure Jenkins init settings.
-- include_tasks: settings.yml
-
 - name: redhat | Installing jenkins 
   ansible.builtin.yum:
     name: "{{ jenkins_package }}"
@@ -49,6 +46,9 @@
   ansible.builtin.systemd:
       daemon_reload: yes
   become: true
+
+  # Configure Jenkins init settings.
+- include_tasks: settings.yml
 
 - name: rhel | Start jenkins
   ansible.builtin.systemd:
