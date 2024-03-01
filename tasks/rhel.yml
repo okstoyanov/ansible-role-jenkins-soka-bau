@@ -1,8 +1,7 @@
 ---
+# Install jenkins for RHEL
 
-# install jenkins for RHEL
-
-- name: redhat | Download Long Term Jenkins release
+- name: Download Long Term Jenkins release
   get_url:
     url: "{{ jenkins_repo }}"
     dest: /etc/yum.repos.d/jenkins.repo
@@ -10,37 +9,42 @@
   register: result
   until: result is successful
   
-- name: redhat | Importing the key 
+- name: Importing the key 
   ansible.builtin.rpm_key:
     state: present
     key: "{{ jenkins_key }}"
   become: true
 
-- name: redhat | update the system
+- name: Update the system
   ansible.builtin.yum:
     name: "*"
     state: latest
   become: true
 
-- name: redhat | install dependencies fontconfig
+### TODO: Parametrize
+- name: install dependencies fontconfig
   ansible.builtin.yum:
     name: fontconfig
     state: present
   become: true
 
-- name: redhat | install java for jenkins 
+- name: install java for jenkins 
   ansible.builtin.yum: 
     name: "{{ java_version }}"
     state: present
   become: true
 
-#### TODO: Params ####
-- name: redhat | correct java version selected
+#### TODO: Parametrize
+- name: correct java version selected
   community.general.alternatives:
     name: java
     path: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el9.x86_64/bin/java
 
-- name: redhat | Installing jenkins 
+#### TODO: Certs #####
+#
+#
+
+- name: Installing jenkins 
   ansible.builtin.yum:
     name: "{{ jenkins_package }}"
     state: present
@@ -53,7 +57,7 @@
       daemon_reload: yes
   become: true
 
-  # Configure Jenkins init settings.
+# Configure Jenkins init / override settings.
 - include_tasks: settings.yml
 
 - name: rhel | Start jenkins
@@ -63,16 +67,16 @@
       enabled: true
   become: true
 
-#- name: rhel | Open Firewall Port
-#  ansible.posix.firewalld:
-#    port: 8080/tcp
-#    permanent: yes
-#    state: enabled
-#    zone: public
-#    immediate: yes
-#  become: true
-#  when: ansible_facts.services['firewalld.service'].state == 'started'
-#  notify: "{{ firewalld_service }}"
+- name: rhel | Open Firewall Port
+  ansible.posix.firewalld:
+    port: 443/tcp
+    permanent: yes
+    state: enabled
+    zone: public
+    immediate: yes
+  become: true
+  when: ansible_facts.services['firewalld.service'].state == 'running'
+  notify: "{{ firewalld_service }}"
 
 # Update Jenkins and install configured plugins.
 - include_tasks: plugins.yml
