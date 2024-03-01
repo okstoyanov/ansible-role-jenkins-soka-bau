@@ -44,7 +44,7 @@
 
 # TODO:
 # Install and configure Nginx to handle Jenkins with SSL.
-# - include_tasks: nginx.yml
+- include_tasks: nginx.yml
 
 - name: Installing jenkins 
   ansible.builtin.yum:
