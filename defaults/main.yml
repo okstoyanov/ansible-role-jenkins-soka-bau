@@ -15,7 +15,7 @@ jenkins_home: /opt/jenkins
 jenkins_hostname: localhost
 jenkins_http_port: 8080
 #jenkins_jar_location: /opt/jenkins-cli.jar
-jenkins_url_prefix: ""
+jenkins_url_prefix: "/jenkins"
 jenkins_options: ""
 jenkins_java_options: "-Djenkins.install.runSetupWizard=false"
 

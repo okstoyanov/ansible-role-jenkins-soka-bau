@@ -21,7 +21,8 @@
     state: latest
   become: true
 
-### TODO: Parametrize
+# TODO:
+# Parametrize to install multiple dependencies for different hosts
 - name: install dependencies fontconfig
   ansible.builtin.yum:
     name: fontconfig
@@ -34,15 +35,16 @@
     state: present
   become: true
 
-#### TODO: Parametrize
+# TODO:
+# Set current java version to java-17-openjdk (and parametrize the task)
 - name: correct java version selected
   community.general.alternatives:
     name: java
     path: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el9.x86_64/bin/java
 
-#### TODO: Certs #####
-#
-#
+# TODO:
+# Install and configure Nginx to handle Jenkins with SSL.
+# - include_tasks: nginx.yml
 
 - name: Installing jenkins 
   ansible.builtin.yum:
@@ -52,7 +54,7 @@
   register: result
   until: result is successful
 
-- name: rhel | daemon-reload to pick up config changes
+- name: daemon-reload to pick up config changes
   ansible.builtin.systemd:
       daemon_reload: yes
   become: true
@@ -60,7 +62,7 @@
 # Configure Jenkins init / override settings.
 - include_tasks: settings.yml
 
-- name: rhel | Start jenkins
+- name: Start jenkins
   ansible.builtin.systemd:
       name: "{{ jenkins_service }}"
       state: started
@@ -70,7 +72,7 @@
 - name: Populate service facts
   service_facts:
 
-- name: rhel | Open Firewall Port
+- name: Open Firewall Port
   ansible.posix.firewalld:
     port: 443/tcp
     permanent: yes
