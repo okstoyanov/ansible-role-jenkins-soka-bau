@@ -15,14 +15,14 @@ jenkins_home: /opt/jenkins
 jenkins_hostname: localhost
 jenkins_http_port: 8080
 #jenkins_jar_location: /opt/jenkins-cli.jar
-jenkins_url_prefix: "/jenkins"
+###########################################jenkins_url_prefix: "/jenkins"
 jenkins_options: ""
 jenkins_java_options: "-Djenkins.install.runSetupWizard=false"
 
 # Plugin list can use the plugin name, or a name/version dict.
-jenkins_plugins:
-  - blueocean
-  - matrix-auth
+############################################jenkins_plugins:
+############################################  - blueocean
+############################################  - matrix-auth
 
 jenkins_plugins_state: present
 jenkins_plugin_updates_expiration: 86400
