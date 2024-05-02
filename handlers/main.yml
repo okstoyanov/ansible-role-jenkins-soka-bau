@@ -12,3 +12,8 @@
     name: firewalld.service
     state: restarted
   become: true
+
+- name: restart nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted

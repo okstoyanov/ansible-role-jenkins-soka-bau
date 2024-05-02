@@ -1,7 +1,32 @@
 ---
-# TODO
+# Install and Configure NGINX as a Reverse Proxy
+
 - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
   ansible.posix.seboolean:
     name: httpd_can_network_connect
     state: true
     persistent: true
+
+- name: Install EPEL Repository
+  ansible.builtin.yum:
+    name: epel-release
+    state: present
+
+- name: Install NGINX
+  ansible.builtin.yum:
+    name: nginx
+    state: present
+
+- name: Start and enable NGINX
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Deploy NGINX Reverse Proxy Configuration
+  ansible.builtin.copy:
+    src: reverse_proxy.conf
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - restart nginx
+
