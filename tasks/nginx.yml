@@ -13,7 +13,7 @@
     dest: /tmp/epel-release-latest-9.noarch.rpm
 
 - name: Install EPEL release package
-  ansible.builtin.rpm:
+  ansible.builtin.dnf:
     name: /tmp/epel-release-latest-9.noarch.rpm
     state: present
 
