@@ -44,7 +44,7 @@
 # Configure Nginx with SSL certificates named after the hostname
 - name: Deploy NGINX Reverse Proxy Configuration
   ansible.builtin.template:
-    src: configs/nginx.conf.j2
+    src: configs/reverse_proxy.conf.j2
     dest: /etc/nginx/nginx.conf
   notify:
     - restart nginx
