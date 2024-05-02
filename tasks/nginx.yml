@@ -7,6 +7,11 @@
     state: true
     persistent: true
 
+- name: Import EPEL GPG key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9
+
 - name: Download EPEL release package
   ansible.builtin.get_url:
     url: https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
