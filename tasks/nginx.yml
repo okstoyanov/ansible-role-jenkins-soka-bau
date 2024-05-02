@@ -25,7 +25,7 @@
 
 - name: Deploy NGINX Reverse Proxy Configuration
   ansible.builtin.copy:
-    src: reverse_proxy.conf
+    src: configs/reverse_proxy.conf
     dest: /etc/nginx/nginx.conf
   notify:
     - restart nginx
