@@ -21,7 +21,6 @@
     state: latest
   become: true
 
-# TODO:
 # Parametrize to install multiple dependencies for different hosts
 - name: install dependencies fontconfig
   ansible.builtin.yum:
@@ -36,13 +35,13 @@
   become: true
 
 # Set current java version to java-17-openjdk
-#
+# java -version | and check
+# the "/usr/lib/jvm/" folder for the current version
 - name: Correct java version selected
   community.general.alternatives:
     name: java
     path: /usr/lib/jvm/java-17-openjdk-17.0.11.0.9-2.el9.x86_64/bin/java
 
-# TODO:
 # Install and configure Nginx to handle Jenkins with SSL.
 - include_tasks: nginx.yml
 
