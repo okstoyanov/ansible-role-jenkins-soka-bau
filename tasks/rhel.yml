@@ -36,6 +36,7 @@
   become: true
 
 # Set current java version to java-17-openjdk
+#
 - name: Correct java version selected
   community.general.alternatives:
     name: java

@@ -7,10 +7,20 @@
     state: true
     persistent: true
 
-- name: Install EPEL Repository
-  ansible.builtin.yum:
-    name: epel-release
+- name: Download EPEL release package
+  ansible.builtin.get_url:
+    url: https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+    dest: /tmp/epel-release-latest-9.noarch.rpm
+
+- name: Install EPEL release package
+  ansible.builtin.rpm:
+    name: /tmp/epel-release-latest-9.noarch.rpm
     state: present
+
+#- name: Install EPEL Repository
+#  ansible.builtin.yum:
+#    name: epel-release
+#    state: present
 
 - name: Install NGINX
   ansible.builtin.yum:
