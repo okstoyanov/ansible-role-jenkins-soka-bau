@@ -1,28 +1,27 @@
 ---
 # Optional method of pinning a specific version of Jenkins and/or overriding the
 # default Jenkins packaging URL.
-jenkins_version: "2.444"
-# jenkins_pkg_url: "https://www.example.com"
+## not being used ## jenkins_version: "2.444"
+## not being used ## jenkins_pkg_url: "https://www.example.com"
 
 # Change this to `latest` to update Jenkins if a newer version is available.
-jenkins_package_state: present
+## not being used ## jenkins_package_state: present
+## not being used ## jenkins_prefer_lts: false
 
-jenkins_prefer_lts: false
-
-jenkins_connection_delay: 5
-jenkins_connection_retries: 60
+## not being used ## jenkins_connection_delay: 5
+## not being used ## jenkins_connection_retries: 60
 jenkins_home: /opt/jenkins
 jenkins_hostname: localhost
 jenkins_http_port: 8080
-#jenkins_jar_location: /opt/jenkins-cli.jar
-###########################################jenkins_url_prefix: "/jenkins"
+## defined in host_vars directory host-files ## jenkins_jar_location: /opt/jenkins-cli.jar
+## defined in host_vars directory host-files ## jenkins_url_prefix: "/"
 jenkins_options: ""
 jenkins_java_options: "-Djenkins.install.runSetupWizard=false"
 
 # Plugin list can use the plugin name, or a name/version dict.
-############################################jenkins_plugins:
-############################################  - blueocean
-############################################  - matrix-auth
+## defined in host_vars directory host-files ## jenkins_plugins:
+## defined in host_vars directory host-files ##   - blueocean
+## defined in host_vars directory host-files ##   - matrix-auth
 
 jenkins_plugins_state: present
 jenkins_plugin_updates_expiration: 86400
@@ -48,7 +47,6 @@ jenkins_init_changes:
     value: "{{ jenkins_url_prefix }}"
   - option: "JENKINS_PORT"
     value: "{{ jenkins_http_port }}"
-
 
 # If Jenkins is behind a proxy, configure this.
 jenkins_proxy_host: ""

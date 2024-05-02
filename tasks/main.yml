@@ -1,8 +1,11 @@
 ---
-# Tasks file for jenkins
-- name: Set facts
+## Main Task File.
+
+# 01 # Set (ansible.builtin.include_tasks: set_facts.yml) RedHat Facts.
+- name: Set RedHat Facts
   ansible.builtin.include_tasks: set_facts.yml
 
+# 02 # Execute (ansible.builtin.include_tasks: rhel.yml) RHEL tasks.
 - name: Execute RHEL tasks
   ansible.builtin.include_tasks: rhel.yml
   when: ansible_os_family == "RedHat"

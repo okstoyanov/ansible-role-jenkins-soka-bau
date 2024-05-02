@@ -1,19 +1,28 @@
 ---
-# jenkins_plugin module doesn't support password files.
+## Install Plugins
+
+# 01 # Register jenkins admin password form file | jenkins_plugin module doesn't support password files.
+# The provided Ansible task uses the slurp module to read the contents of a file specified by the
+# jenkins_admin_password_file variable from the remote host. The content of this file is expected
+# to contain the Jenkins admin password. The task then registers the output of this operation to a
+# variable named adminpasswordfile. To ensure security and confidentiality, the task is marked with
+# no_log: true to prevent the password from being logged or displayed in Ansible's output. The task
+# is conditionally executed only if the jenkins_admin_password_file variable is defined and not false,
+# as indicated by the when condition.
 - name: Get Jenkins admin password from file.
   slurp:
     src: "{{ jenkins_admin_password_file }}"
   register: adminpasswordfile
   no_log: true
   when: jenkins_admin_password_file | default(false)
-  tags: ['skip_ansible_lint']
 
+# 02 # Set Jenkins admin password fact.
 - name: Set Jenkins admin password fact.
   set_fact:
     jenkins_admin_password: "{{ adminpasswordfile['stdout'] | default(jenkins_admin_password) }}"
   no_log: true
 
-# Update Jenkins so that plugin updates don't fail.
+# 03 # Update Jenkins so that plugin updates don't fail.
 - name: Create Jenkins updates directory.
   file:
     path: "{{ jenkins_home }}/updates"
@@ -22,6 +31,7 @@
     group: jenkins
     mode: 0755
 
+# 04 # Download current plugin updates from Jenkins update site.
 - name: Download current plugin updates from Jenkins update site.
   get_url:
     url: "{{ jenkins_updates_url }}/update-center.json"
@@ -35,11 +45,13 @@
   retries: 3
   delay: 2
 
+# 05 # Remove first and last line from json file.
 - name: Remove first and last line from json file.
   replace:  # noqa 208
     path: "{{ jenkins_home }}/updates/default.json"
     regexp: "1d;$d"
 
+# 06 # Install Jenkins plugins using password.
 - name: Install Jenkins plugins using password.
   jenkins_plugin:
     name: "{{ item.name | default(item) }}"
@@ -56,7 +68,6 @@
   with_items: "{{ jenkins_plugins }}"
   when: jenkins_admin_password | default(false)
   notify: restart jenkins
-  tags: ['skip_ansible_lint']
   register: plugin_result
   until: plugin_result is success
   retries: 3

@@ -1,4 +1,4 @@
 ---
-# vars file for jenkins
+## Jenkins variables.
 
-### TODO: Define vars
+# Jenkins variables can be defined here.

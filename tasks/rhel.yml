@@ -1,51 +1,55 @@
 ---
-# Install jenkins for RHEL
+## Install and configure Jenkins Service on RHEL9 machine.
 
+# 01 # Configure Long Term Jenkins release repository.
 - name: Download Long Term Jenkins release
   get_url:
     url: "{{ jenkins_repo }}"
-    dest: /etc/yum.repos.d/jenkins.repo
+    dest: "/etc/yum.repos.d/jenkins.repo"
   become: true
   register: result
   until: result is successful
-  
-- name: Importing the key 
+
+# 02 # Importing the GPG key for Jenkins repository.
+- name: Importing the GPG key
   ansible.builtin.rpm_key:
     state: present
     key: "{{ jenkins_key }}"
   become: true
 
+# 03 # Perform RHEL9 System Update.
 - name: Update the system
   ansible.builtin.yum:
     name: "*"
     state: latest
   become: true
 
-# Parametrize to install multiple dependencies for different hosts
+# 04 # Install dependency: fontconfig.
 - name: install dependencies fontconfig
   ansible.builtin.yum:
     name: fontconfig
     state: present
   become: true
 
-- name: Install java for jenkins
+# 05 # Install java in "java_version" version.
+- name: Install Java for Jenkins
   ansible.builtin.yum: 
     name: "{{ java_version }}"
     state: present
   become: true
 
-# Set current java version to java-17-openjdk
-# java -version | and check
-# the "/usr/lib/jvm/" folder for the current version
+# 06 # Set current java version to java-17-openjdk.
+# java -version | and check the "/usr/lib/jvm/" folder for the current version.
 - name: Correct java version selected
   community.general.alternatives:
     name: java
-    path: /usr/lib/jvm/java-17-openjdk-17.0.11.0.9-2.el9.x86_64/bin/java
+    path: "/usr/lib/jvm/java-17-openjdk-17.0.11.0.9-2.el9.x86_64/bin/java"
 
-# Install and configure Nginx to handle Jenkins with SSL.
+# 07 # Install (include_tasks: nginx.yml) and configure Nginx to handle Jenkins with SSL.
 - include_tasks: nginx.yml
 
-- name: Installing jenkins 
+# 08 # Installing Jenkins
+- name: Installing Jenkins
   ansible.builtin.yum:
     name: "{{ jenkins_package }}"
     state: present
@@ -53,14 +57,17 @@
   register: result
   until: result is successful
 
-- name: daemon-reload to pick up config changes
+# 09 # Perform daemon-reload to pick up config changes.
+- name: Perform daemon-reload to pick up config changes
   ansible.builtin.systemd:
       daemon_reload: yes
   become: true
 
-# Configure Jenkins init / override settings.
+# 10 # Configure Jenkins: jenkins proxy, jenkins init file, override default init settings:
+# /etc/systemd/system/jenkins.service.d/override.conf
 - include_tasks: settings.yml
 
+# 11 # Start Jenkins Service
 - name: Start jenkins
   ansible.builtin.systemd:
       name: "{{ jenkins_service }}"
@@ -68,9 +75,11 @@
       enabled: true
   become: true
 
+# 12 # Gather and return / populate information about all the services on the target host.
 - name: Populate service facts
   service_facts:
 
+# 13 # Open FirewallD Port 443 when firewalld is running.
 - name: Open Firewall Port
   ansible.posix.firewalld:
     port: 443/tcp
@@ -82,5 +91,5 @@
   when: ansible_facts.services['firewalld.service'].state == 'running'
   notify: "{{ firewalld_service }}"
 
-# Update Jenkins and install configured plugins.
+# 14 # Update (include_tasks: plugins.yml) Jenkins and install configured plugins.
 - include_tasks: plugins.yml
