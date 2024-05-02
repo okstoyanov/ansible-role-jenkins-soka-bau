@@ -22,11 +22,6 @@
     name: /tmp/epel-release-latest-9.noarch.rpm
     state: present
 
-#- name: Install EPEL Repository
-#  ansible.builtin.yum:
-#    name: epel-release
-#    state: present
-
 - name: Install NGINX
   ansible.builtin.yum:
     name: nginx
@@ -38,10 +33,18 @@
     state: started
     enabled: yes
 
-- name: Deploy NGINX Reverse Proxy Configuration
+# Import .crt and .key files
+- name: Copy files (.crt and .key) starting with the hostname
   ansible.builtin.copy:
-    src: configs/reverse_proxy.conf
+    src: "{{ item }}"
+    dest: "/etc/ssl/certs/"
+  with_fileglob:
+    - "certificates/{{ ansible_hostname }}*"
+
+# Configure Nginx with SSL certificates named after the hostname
+- name: Deploy NGINX Reverse Proxy Configuration
+  ansible.builtin.template:
+    src: configs/nginx.conf.j2
     dest: /etc/nginx/nginx.conf
   notify:
     - restart nginx
-
