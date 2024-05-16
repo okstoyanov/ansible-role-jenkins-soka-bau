@@ -1,4 +1,10 @@
 ---
+## Info (for the configuration of the further parameters):
+# https://docs.ansible.com/ansible/latest/collections/community/general/jenkins_script_module.html
+# https://github.com/meierw/jenkins-config
+# https://github.com/karlmdavis/ansible-role-jenkins2
+
+
 ## Configure Jenkins Using Groovy Scripts.
 
 # 01 # Ensure that Jenkins has restarted, if it needs to.
@@ -16,4 +22,4 @@
     password: "None"
     url: http://localhost:8080
   register: configure_email
-  changed_when: "'Changed' not in configure_email.stdout"
+  changed_when: configure_email.changed
