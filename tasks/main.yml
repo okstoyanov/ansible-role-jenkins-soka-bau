@@ -9,3 +9,7 @@
 - name: Execute RHEL tasks
   ansible.builtin.include_tasks: rhel.yml
   when: ansible_os_family == "RedHat"
+
+# 03 # Configure Jenkins Using Groovy Scripts.
+- name: Configure Jenkins Using Groovy Scripts.
+  ansible.builtin.include_tasks: configs.yml

@@ -1,0 +1,23 @@
+---
+## Configure Jenkins Using Groovy Scripts.
+
+# 01 # Ensure that Jenkins has restarted, if it needs to.
+- meta: flush_handlers
+
+# 02 # Configure "System Admin e-mail address" Using Groovy Script.
+- name: Configure Jenkins System Admin e-mail address
+  hosts: jenkins
+  become: true
+  tasks:
+    - name: Set System Admin e-mail address in Jenkins
+      community.general.jenkins_script:
+        script: |
+          import jenkins.model.*
+          def jenkinsLocationConfiguration = JenkinsLocationConfiguration.get()
+          jenkinsLocationConfiguration.setAdminAddress("admin-soka-bau@example.com")
+          jenkinsLocationConfiguration.save()
+        user: "None"
+        password: "None"
+        url: http://localhost:8080
+      register: configure_email
+      changed_when: "'Changed' not in configure_email.stdout"
