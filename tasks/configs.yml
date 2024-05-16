@@ -29,9 +29,9 @@
 # 03 # Set Jenkins e-mail notification.
 - name: Set Jenkins e-mail notification
   jenkins_script:
-    url: "{{ jenkins_config_url }}"
-    user: "{{ jenkins_config_user }}"
-    password: "{{ jenkins_config_password }}"
+    url: http://localhost:8080
+    user: "None"
+    password: "None"
     script: "{{ lookup('template', 'templates/setEmailNotification.groovy') }}"
   when:
     - jenkins_config_email_notification.smtp_server is defined
