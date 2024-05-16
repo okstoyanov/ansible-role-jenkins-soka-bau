@@ -69,7 +69,7 @@ admin_email: "jenkins-admin@soka-bau.de"
 # jenkins_config_email_notification: null
 jenkins_config_email_notification:
   smtp_server: smtp.gmail.com
-  default_user_email_suffix: @soka-bau.de
+  default_user_email_suffix: "@soka-bau.de"
   smtp_auth_username: example
   smtp_auth_password: "secret_smtp_password"
   use_ssl: false
