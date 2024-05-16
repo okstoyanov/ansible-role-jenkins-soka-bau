@@ -11,19 +11,7 @@
 # 01 # Ensure that Jenkins has restarted, if it needs to.
 - meta: flush_handlers
 
-# 02 # Retrieve the Current "System Admin e-mail address".
-- name: Get current System Admin e-mail address
-  community.general.jenkins_script:
-    script: |
-      import jenkins.model.*
-      def jenkinsLocationConfiguration = JenkinsLocationConfiguration.get()
-      println(jenkinsLocationConfiguration.getAdminAddress())
-    user: "None"
-    password: "None"
-    url: http://localhost:8080
-  register: current_email
-
-# 03 # Configure "System Admin e-mail address" Using Groovy Script.
+# 02 # Configure "System Admin e-mail address" Using Groovy Script.
 - name: Set System Admin e-mail address in Jenkins
   community.general.jenkins_script:
     script: |
@@ -35,4 +23,5 @@
     password: "None"
     url: http://localhost:8080
   register: configure_email
-  changed_when: current_email.stdout.strip() != admin_email
+  # Not reporting as changed (todo)
+  changed_when: configure_email.changed
