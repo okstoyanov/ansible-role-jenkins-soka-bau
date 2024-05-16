@@ -22,4 +22,4 @@
     password: "None"
     url: http://localhost:8080
   register: configure_email
-  changed_when: configure_email.changed
+  changed_when: "(configure_email | success) and 'Changed' not in configure_email.stdout"
