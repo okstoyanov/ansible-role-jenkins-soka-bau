@@ -61,5 +61,18 @@ jenkins_init_folder: "/etc/systemd/system/jenkins.service.d"
 jenkins_init_file: "{{ jenkins_init_folder }}/override.conf"
 
 
+
 ## JENKINS (Configuration Defaults)
+
 admin_email: "jenkins-admin@soka-bau.de"
+
+# jenkins_config_email_notification: null
+jenkins_config_email_notification:
+  smtp_server: smtp.gmail.com
+  default_user_email_suffix: @soka-bau.de
+  smtp_auth_username: example
+  smtp_auth_password: "secret_smtp_password"
+  use_ssl: false
+  smtp_port: 465
+  reply_to_address: ''
+  charset: UTF-8
