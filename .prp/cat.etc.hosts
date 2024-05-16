@@ -1,0 +1,6 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+10.10.145.74    sl-023110.sol.labwi.sva.de sl-023110
+10.10.145.160   jenkins-01
+10.10.147.165   jenkins-02

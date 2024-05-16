@@ -1,5 +1,5 @@
 ---
-## Install Plugins
+## Install Plugins.
 
 # 01 # Register jenkins admin password form file | jenkins_plugin module doesn't support password files.
 # The provided Ansible task uses the slurp module to read the contents of a file specified by the
@@ -8,7 +8,7 @@
 # variable named adminpasswordfile. To ensure security and confidentiality, the task is marked with
 # no_log: true to prevent the password from being logged or displayed in Ansible's output. The task
 # is conditionally executed only if the jenkins_admin_password_file variable is defined and not false,
-# as indicated by the when condition.
+# as indicated by the "when" condition.
 - name: Get Jenkins admin password from file.
   slurp:
     src: "{{ jenkins_admin_password_file }}"

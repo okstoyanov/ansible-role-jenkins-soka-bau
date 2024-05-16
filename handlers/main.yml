@@ -1,21 +1,21 @@
 ---
-# Handlers
+## Handlers.
 
-# 01 # Restart Jenkins server
+# 01 # Restart Jenkins Server.
 - name: restart jenkins
   ansible.builtin.service:
     name: jenkins
     state: restarted
   become: true
 
-# 02 # Restart FirewallD service
+# 02 # Restart FirewallD Service.
 - name: restart firewalld
   ansible.builtin.service:
     name: firewalld.service
     state: restarted
   become: true
 
-# 03 # Restart NGINX server
+# 03 # Restart NGINX Server.
 - name: restart nginx
   ansible.builtin.systemd:
     name: nginx

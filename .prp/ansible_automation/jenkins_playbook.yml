@@ -1,0 +1,5 @@
+---
+- name: Jenkins Playbook
+  hosts: jenkins
+  roles:
+    - ansible-role-jenkins-soka-bau

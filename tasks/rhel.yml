@@ -48,7 +48,7 @@
 # 07 # Install (include_tasks: nginx.yml) and configure Nginx to handle Jenkins with SSL.
 - include_tasks: nginx.yml
 
-# 08 # Installing Jenkins
+# 08 # Installing Jenkins.
 - name: Installing Jenkins
   ansible.builtin.yum:
     name: "{{ jenkins_package }}"
@@ -67,7 +67,7 @@
 # /etc/systemd/system/jenkins.service.d/override.conf
 - include_tasks: settings.yml
 
-# 11 # Start Jenkins Service
+# 11 # Start Jenkins Service.
 - name: Start jenkins
   ansible.builtin.systemd:
       name: "{{ jenkins_service }}"

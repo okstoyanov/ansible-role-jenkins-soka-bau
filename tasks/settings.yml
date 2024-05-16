@@ -1,6 +1,6 @@
 ---
 ## Configure Jenkins: jenkins proxy, jenkins init file, override default init settings:
-## /etc/systemd/system/jenkins.service.d/override.conf
+## /etc/systemd/system/jenkins.service.d/override.conf.
 
 # 01 #  Check if jenkins_init_folder exists.
 - name: Check if jenkins_init_folder exists.

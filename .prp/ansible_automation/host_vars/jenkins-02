@@ -1,0 +1,4 @@
+jenkins_plugins:
+  - blueocean
+
+jenkins_url_prefix: "/"

@@ -1,45 +1,45 @@
 ---
-## Install and Configure NGINX as a Reverse Proxy
+## Install and Configure NGINX as a Reverse Proxy.
 
-# 01 # Enable SEBOOLEAN httpd_can_network_connect
+# 01 # Enable SEBOOLEAN httpd_can_network_connect.
 - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
   ansible.posix.seboolean:
     name: httpd_can_network_connect
     state: true
     persistent: true
 
-# 02 # Import GPG key for epel-release repository
+# 02 # Import GPG key for epel-release repository.
 - name: Import EPEL GPG key
   ansible.builtin.rpm_key:
     state: present
     key: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9"
 
-# 03 # Download epel-release repository package
+# 03 # Download epel-release repository package.
 - name: Download EPEL release package
   ansible.builtin.get_url:
     url: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
     dest: "/tmp/epel-release-latest-9.noarch.rpm"
 
-# 04 # Install epel-release repository package
+# 04 # Install epel-release repository package.
 - name: Install EPEL release package
   ansible.builtin.dnf:
     name: "/tmp/epel-release-latest-9.noarch.rpm"
     state: present
 
-# 05 # Install NGINX server
+# 05 # Install NGINX Server.
 - name: Install NGINX
   ansible.builtin.yum:
     name: nginx
     state: present
 
-# 06 # Start and enable NGINX server
+# 06 # Start and enable NGINX Server.
 - name: Start and enable NGINX
   ansible.builtin.systemd:
     name: nginx
     state: started
     enabled: yes
 
-# 07 # Import certificates and keys: .crt and .key files starting with the hostname
+# 07 # Import certificates and keys: .crt and .key files starting with the hostname.
 - name: Copy files (.crt and .key) starting with the hostname
   ansible.builtin.copy:
     src: "{{ item }}"
@@ -47,7 +47,7 @@
   with_fileglob:
     - "certificates/{{ ansible_hostname }}*"
 
-# 08 # Configure Nginx with SSL certificates named after the hostname
+# 08 # Configure Nginx with SSL certificates named after the hostname.
 - name: Deploy NGINX Reverse Proxy Configuration
   ansible.builtin.template:
     src: "configs/reverse_proxy.conf.j2"

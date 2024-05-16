@@ -1,0 +1,5 @@
+jenkins_plugins:
+  - blueocean
+  - matrix-auth
+
+jenkins_url_prefix: "/"
