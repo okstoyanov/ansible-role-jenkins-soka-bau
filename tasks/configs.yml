@@ -16,7 +16,7 @@
     script: |
       import jenkins.model.*
       def jenkinsLocationConfiguration = JenkinsLocationConfiguration.get()
-      jenkinsLocationConfiguration.setAdminAddress("admin-soka-bau@example.com")
+      jenkinsLocationConfiguration.setAdminAddress("{{ admin_email }}")
       jenkinsLocationConfiguration.save()
     user: "None"
     password: "None"
