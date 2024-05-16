@@ -29,4 +29,4 @@ Including an example of how to use your role:
           roles:
             - ansible-role-jenkins-soka-bau
 
-To obtain further Instructions refer to the "Konfigurations- und Ansible-Rollen-Benutzeranleitung für RHEL9 Ansible Control Node SOKA-BAU v1.2.pptx"
+To obtain further Instructions refer to the "Konfigurations- und Ansible-Rollen-Benutzeranleitung für RHEL9 Ansible Control Node SOKA-BAU v-.-.pptx"
